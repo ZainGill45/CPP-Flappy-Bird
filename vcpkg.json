@@ -1,0 +1,8 @@
+{
+    "name": "learning-cpp",
+    "description": "Learning-CPP",
+    "license": "MIT",
+    "dependencies": [
+        "raylib"
+    ]
+}

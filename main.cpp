@@ -1,14 +1,23 @@
 #include <iostream>
+#include <raylib.h>
 
-int main() {
-    int x = 10;
-    int y = 20;
+int main(int, char**) {
+    InitWindow(800, 600, "My Raylib Window");
+    SetTargetFPS(60);
 
-    std::cout << x;
-    std::cout << " + ";
-    std::cout << y;
-    std::cout << " = ";
-    std::cout << x+y;
+    while (WindowShouldClose() == false)
+    {
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+
+        DrawText("Hello, from learning C++", 10, 10, 20, BLACK);
+
+        DrawFPS(10, 40);
+
+        EndDrawing();
+    }
+
+    CloseWindow();
 
     return 0;
 }
