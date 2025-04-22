@@ -24,9 +24,9 @@ int main(int, char**) {
 
     float yVelocity;
 
-    const float playerJumpForce = -500.0f;
+    const float playerJumpForce = -700.0f;
     const float gravity = 9.84f;
-    const int playerRadius = 10;
+    const int playerSize = 25;
 
     while (WindowShouldClose() == false)
     {
@@ -49,9 +49,8 @@ int main(int, char**) {
         // Update player position
         playerPosition.y += yVelocity * GetFrameTime();
 
-        playerPosition.x += 0.0f * GetFrameTime();
-        playerPosition.x = Clamp(playerPosition.x, playerRadius, screenWidth  - playerRadius);
-        playerPosition.y = Clamp(playerPosition.y, playerRadius, screenHeight - playerRadius);
+        playerPosition.x = Clamp(playerPosition.x, 0, screenWidth  - playerSize);
+        playerPosition.y = Clamp(playerPosition.y, 0, screenHeight - playerSize);
 
         // Draw player and debug info
         DrawTexture(player, playerPosition.x, playerPosition.y, WHITE);
