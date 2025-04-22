@@ -7,12 +7,11 @@ int main(int, char**) {
     InitWindow(870, 512, "Learning C++");
     SetTargetFPS(300);
 
-    // Load background texture and set wrap mode to repeat
+    // Load spries for the game
     Texture2D background = LoadTexture("./assets/sprites/background-day.png");
-
-    if (background.id == 0) {
-        TraceLog(LOG_ERROR, "Failed to load background texture");
-    }
+    if (background.id == 0) TraceLog(LOG_ERROR, "Failed to load background texture");
+    Texture2D player = LoadTexture("./assets/sprites/yellowbird-upflap.png");
+    if (player.id == 0) TraceLog(LOG_ERROR, "Failed to load player texture");
 
     SetTextureWrap(background, TEXTURE_WRAP_REPEAT);
 
@@ -32,8 +31,8 @@ int main(int, char**) {
         ClearBackground(RAYWHITE);
 
         // Draw tiled background in one call
-        Rectangle srcRec = { 0.0f, 0.0f, (float)screenWidth, (float)screenHeight };
-        DrawTextureRec(background, srcRec, { 0, 0 }, WHITE);
+        Rectangle backgroundRectangle = { 0.0f, 0.0f, (float)screenWidth, (float)screenHeight };
+        DrawTextureRec(background, backgroundRectangle, { 0, 0 }, WHITE);
 
         // Handle input and movement
         Vector2 inputVector = { 0, 0 };
@@ -50,7 +49,7 @@ int main(int, char**) {
         playerPosition.y = Clamp(playerPosition.y, playerRadius, screenHeight - playerRadius);
 
         // Draw player and debug info
-        DrawCircle(playerPosition.x, playerPosition.y, playerRadius, RED);
+        DrawTexture(player, playerPosition.x, playerPosition.y, WHITE);
 
         // Draw text to screen for debugging
         char debugText[32];
