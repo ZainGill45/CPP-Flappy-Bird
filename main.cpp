@@ -1,11 +1,14 @@
 #include <iostream>
 #include <raylib.h>
+#include <raymath.h>
 
 int main(int, char**) {
-    InitWindow(800, 600, "My Raylib Window");
+    InitWindow(800, 600, "Leaning C++");
     SetTargetFPS(300);
 
     Vector2 playerPosition = { 400, 300 };
+
+    float playerSpeed = 100;
 
     while (WindowShouldClose() == false)
     {
@@ -19,8 +22,10 @@ int main(int, char**) {
         if (IsKeyDown(KEY_D)) inputVector.x = 1;
         if (IsKeyDown(KEY_A)) inputVector.x = -1;
 
-        playerPosition.x += inputVector.x;
-        playerPosition.y += inputVector.y;
+        inputVector = Vector2Normalize(inputVector);
+
+        playerPosition.x += inputVector.x * playerSpeed * GetFrameTime();
+        playerPosition.y += inputVector.y * playerSpeed * GetFrameTime();
 
         DrawCircle(playerPosition.x, playerPosition.y, 10, RED);
 
