@@ -3,7 +3,7 @@
 #include <raymath.h>
 
 int main(int, char**) {
-// Initialize window and frame rate
+    // Initialize window and frame rate
     InitWindow(870, 512, "Learning C++");
     SetTargetFPS(300);
 
@@ -16,13 +16,17 @@ int main(int, char**) {
     SetTextureWrap(background, TEXTURE_WRAP_REPEAT);
 
     // Retrieve screen size
-    int screenWidth = GetScreenWidth();
-    int screenHeight = GetScreenHeight();
+    const int screenWidth = GetScreenWidth();
+    const int screenHeight = GetScreenHeight();
 
     // Player setup
     Vector2 playerPosition = { 128, 256 };
-    float playerSpeed = 100.0f;
-    int playerRadius = 10;
+
+    float yVelocity;
+
+    const float playerJumpForce = -500.0f;
+    const float gravity = 9.84f;
+    const int playerRadius = 10;
 
     while (WindowShouldClose() == false)
     {
@@ -35,28 +39,22 @@ int main(int, char**) {
         DrawTextureRec(background, backgroundRectangle, { 0, 0 }, WHITE);
 
         // Handle input and movement
-        Vector2 inputVector = { 0, 0 };
-        if (IsKeyDown(KEY_W)) inputVector.y -= 1;
-        if (IsKeyDown(KEY_S)) inputVector.y += 1;
-        if (IsKeyDown(KEY_A)) inputVector.x -= 1;
-        if (IsKeyDown(KEY_D)) inputVector.x += 1;
-        inputVector = Vector2Normalize(inputVector);
+        if (IsKeyPressed(KEY_SPACE)) {
+            yVelocity = 0.0f;
+            yVelocity += playerJumpForce;
+        }
 
+        yVelocity += gravity;
+        
         // Update player position
-        playerPosition.x += inputVector.x * playerSpeed * GetFrameTime();
-        playerPosition.y += inputVector.y * playerSpeed * GetFrameTime();
+        playerPosition.y += yVelocity * GetFrameTime();
+
+        playerPosition.x += 0.0f * GetFrameTime();
         playerPosition.x = Clamp(playerPosition.x, playerRadius, screenWidth  - playerRadius);
         playerPosition.y = Clamp(playerPosition.y, playerRadius, screenHeight - playerRadius);
 
         // Draw player and debug info
         DrawTexture(player, playerPosition.x, playerPosition.y, WHITE);
-
-        // Draw text to screen for debugging
-        char debugText[32];
-        snprintf(debugText, sizeof(debugText),
-                 "(%.0f, %.0f)",
-                 inputVector.x, inputVector.y);
-        DrawText(debugText, 10, 5, 20, BLACK);
 
         // End frame
         EndDrawing();
