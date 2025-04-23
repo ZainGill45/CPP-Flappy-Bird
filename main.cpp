@@ -4,8 +4,6 @@
 #include <raymath.h>
 #include <cmath>
 
-#define DEBUG_DRAW_COLLISIONS
-
 struct Pipe
 {
     Rectangle topRec;
@@ -17,13 +15,14 @@ void DrawTextureTiling(Texture2D texture, float posX, float posY, float width, f
 {
     if (texture.id <= 0 || width <= 0 || height <= 0)
         return;
+
     float tileX = fmodf(scrollOffset, (float)texture.width);
+
     if (tileX > 0)
         tileX -= texture.width;
+
     for (float x = tileX; x < width; x += texture.width)
-    {
         DrawTextureV(texture, {posX + x, posY}, tint);
-    }
 }
 
 int main(int, char **)
@@ -205,11 +204,6 @@ int main(int, char **)
                            WHITE);
 
             DrawTextureRec(PIPE_TEXTURE, pipeSourceRec, {p.bottomRec.x, p.bottomRec.y}, WHITE);
-
-#ifdef DEBUG_DRAW_COLLISIONS
-            DrawRectangleLinesEx(p.topRec, 2, RED);
-            DrawRectangleLinesEx(p.bottomRec, 2, BLUE);
-#endif
         }
 
         DrawTextureTiling(GROUND_TEXTURE, 0, GROUND_Y, static_cast<float>(SCREEN_W), GROUND_HEIGHT, groundScrollOffset, WHITE);
@@ -218,11 +212,6 @@ int main(int, char **)
                     static_cast<int>(playerPos.x - static_cast<float>(PLAYER_TEXTURE.width) / 2.0f),
                     static_cast<int>(playerPos.y - static_cast<float>(PLAYER_TEXTURE.height) / 2.0f),
                     WHITE);
-
-#ifdef DEBUG_DRAW_COLLISIONS
-        DrawCircleLines(static_cast<int>(playerPos.x), static_cast<int>(playerPos.y), PLAYER_RADIUS, GREEN);
-        DrawRectangleLinesEx(groundCollisionRec, 2, ORANGE);
-#endif
 
         char scoreText[32];
         sprintf(scoreText, "Score: %d", currentScore);
