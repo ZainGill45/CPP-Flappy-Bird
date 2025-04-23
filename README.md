@@ -26,10 +26,10 @@ Please keep in mind this project requires that you one have CMake, VS Code CMake
    ```bash
    vcpkg install
    ```
-3. **Configure & build** with CMake
+3. **Configure & build** with CMake  
 With the VS Code CMake extension set target preset to one that comes with the project and then click build all projects button under the project outline.
 
-4. **Run the game**
+4. **Run the game**  
 To play the game go to the /out/build/cpp-flappy-bird directory and run the exe called cpp-flappy-bird.exe.
 
 ## Controls
