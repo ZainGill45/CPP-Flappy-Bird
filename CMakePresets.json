@@ -2,7 +2,7 @@
     "version": 8,
     "configurePresets": [
         {
-            "name": "learning-cpp",
+            "name": "cpp-flappy-bird",
             "displayName": "Configure preset using toolchain file",
             "description": "Sets Ninja generator, build and install directory",
             "generator": "Ninja",

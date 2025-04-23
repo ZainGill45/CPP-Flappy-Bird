@@ -1,55 +1,117 @@
-# Compiled Object files
-**/.DS_Store
-*.slo
-*.lo
+#--------------------------------------------------
+# macOS
+#--------------------------------------------------
+.DS_Store
+
+#--------------------------------------------------
+# Windows
+#--------------------------------------------------
+Thumbs.db
+Desktop.ini
+
+#--------------------------------------------------
+# Build outputs
+#--------------------------------------------------
+# object files, libs, executables
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
+*.lo
+*.slo
 *.a
 *.lib
-
-# Executables
+*.la
+*.lai
+*.dll
+*.so
+*.dylib
 *.exe
 *.out
 *.app
 
-**/cmake-build-debug
-**/CMakeCache.txt
-**/cmake_install.cmake
-**/install_manifest.txt
-**/CMakeFiles/
-**/CTestTestfile.cmake
-**/Makefile
-**/*.cbp
-**/CMakeScripts
-**/compile_commands.json
+# precompiled headers
+*.gch
+*.pch
 
-include/divisible/*
+# Fortran modules
+*.mod
+*.smod
 
+#--------------------------------------------------
+# CMake artifacts
+#--------------------------------------------------
+# Build directories
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+Makefile
+compile_commands.json
 
-## Local 
+# CMake user presets / IDE helpers
+CMakeUserPresets.json
+CMakeSettings.json
+*.cmake.user
+/*.cbp
+/CMakeScripts/
 
-.idea/*.xml
+#--------------------------------------------------
+# vcpkg
+#--------------------------------------------------
+# vcpkg installed packages and artifacts
+vcpkg_installed/
+vcpkg-artifacts/
+vcpkg/packages/
+vcpkg/buildtrees/
+vcpkg/archives/
+vcpkg/downloads/
 
-build/**/*
+#--------------------------------------------------
+# IDE / Editor
+#--------------------------------------------------
+# Visual Studio
+.vs/
+*.vcxproj.*
+*.suo
+*.user
+*.ipch
+*.iobj
+*.ipdb
 
-include/*
-lib/*
-bin/*
-test/test_runner
+# CLion, IntelliJ
+.idea/
+*.iml
+cmake-build-debug/
+
+# VS Code
+.vscode/
+
+# Emacs / Vim
+*~
+*.swp
+*.swo
+.session/
+
+#--------------------------------------------------
+# Package / dependency dirs
+#--------------------------------------------------
+/build/
+/out/
+/dist/
+/node_modules/
+
+#--------------------------------------------------
+# Logs and reports
+#--------------------------------------------------
+*.log
+coverage/
+*.gcno
+*.gcda
+
+#--------------------------------------------------
+# Application-specific
+#--------------------------------------------------
+# Game assets / user data that shouldn’t be in repo
+assets/
+savegames/
