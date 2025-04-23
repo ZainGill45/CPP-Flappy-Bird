@@ -108,10 +108,3 @@ cmake-build-debug/
 coverage/
 *.gcno
 *.gcda
-
-#--------------------------------------------------
-# Application-specific
-#--------------------------------------------------
-# Game assets / user data that shouldn’t be in repo
-assets/
-savegames/
