@@ -34,11 +34,11 @@ int main(int, char **)
     InitWindow(SCREEN_W, SCREEN_H, "Learning C++ with Flappy Bird");
     SetTargetFPS(300);
 
-    const Texture2D BACKGROUND_TEXTURE = LoadTexture("./assets/sprites/background-day.png");
-    const Texture2D GROUND_TEXTURE = LoadTexture("./assets/sprites/base.png");
+    const Texture2D BACKGROUND_TEXTURE = LoadTexture("./assets/sprites/background.png");
+    const Texture2D GROUND_TEXTURE = LoadTexture("./assets/sprites/ground.png");
     const Texture2D GAMEOVER_TEXTURE = LoadTexture("./assets/sprites/gameover.png");
-    const Texture2D PIPE_TEXTURE = LoadTexture("./assets/sprites/pipe-green.png");
-    const Texture2D PLAYER_TEXTURE = LoadTexture("./assets/sprites/yellowbird-midflap.png");
+    const Texture2D PIPE_TEXTURE = LoadTexture("./assets/sprites/pipe.png");
+    const Texture2D PLAYER_TEXTURE = LoadTexture("./assets/sprites/yellowbird.png");
 
     if (BACKGROUND_TEXTURE.id == 0 || GROUND_TEXTURE.id == 0 || GAMEOVER_TEXTURE.id == 0 || PIPE_TEXTURE.id == 0 || PLAYER_TEXTURE.id == 0)
     {
