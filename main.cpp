@@ -27,10 +27,10 @@ void DrawTextureTiling(Texture2D texture, float posX, float posY, float width, f
 
 int main(int, char **)
 {
-    const int SCREEN_W = 870;
-    const int SCREEN_H = 512;
+    const int SCREEN_WIDTH = 870;
+    const int SCREEN_HEIGHT = 512;
 
-    InitWindow(SCREEN_W, SCREEN_H, "Learning C++ with Flappy Bird");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Learning C++ with Flappy Bird");
     SetTargetFPS(300);
 
     const Texture2D BACKGROUND_TEXTURE = LoadTexture("./assets/sprites/background.png");
@@ -52,23 +52,24 @@ int main(int, char **)
     Sound wingSound = LoadSound("./assets/audio/wing.wav");
 
     const float GROUND_HEIGHT = static_cast<float>(GROUND_TEXTURE.height);
-    const float GROUND_Y = static_cast<float>(SCREEN_H) - GROUND_HEIGHT;
-    Rectangle groundCollisionRec = {0, GROUND_Y, static_cast<float>(SCREEN_W), GROUND_HEIGHT};
+    const float GROUND_Y = static_cast<float>(SCREEN_HEIGHT) - GROUND_HEIGHT;
+    Rectangle groundCollisionRec = {0, GROUND_Y, static_cast<float>(SCREEN_WIDTH), GROUND_HEIGHT};
 
-    const int GAMEOVER_X = (SCREEN_W / 2) - (GAMEOVER_TEXTURE.width / 2);
-    const int GAMEOVER_Y = (SCREEN_H / 2) - GAMEOVER_TEXTURE.height * 1.75f;
+    const int GAMEOVER_X = (SCREEN_WIDTH / 2) - (GAMEOVER_TEXTURE.width / 2);
+    const int GAMEOVER_Y = (SCREEN_HEIGHT / 2) - GAMEOVER_TEXTURE.height * 1.75f;
 
     const float PLAYER_JUMP_FORCE = -400.0f;
     const float GRAVITY = 1100.0f;
-    const float PLAYER_RADIUS = 18.0f;
+    const float PLAYER_RADIUS = 17.0f;
 
     const float PIPE_SPEED = 200.0f;
 
-    const int GAP_SIZE = 140;
-    const int PIPE_SPACING = 350;
+    const int MIN_GAP_SIZE = 100;
+    const int MAX_GAP_SIZE = 175;
+    const int PIPE_SPACING = 256;
     const int PIPE_Y_MARGIN = 60;
 
-    Vector2 playerPos = {static_cast<float>(SCREEN_W) / 4.0f, static_cast<float>(SCREEN_H) / 2.0f};
+    Vector2 playerPos = {static_cast<float>(SCREEN_WIDTH) / 4.0f, static_cast<float>(SCREEN_HEIGHT) / 2.0f};
     float yVelocity = 0.0f;
     float backgroundScrollOffset = 0.0f;
     float groundScrollOffset = 0.0f;
@@ -81,7 +82,10 @@ int main(int, char **)
 
     auto SpawnPipe = [&](float xPos)
     {
-        int gapY = GetRandomValue(PIPE_Y_MARGIN, (int)(GROUND_Y - GAP_SIZE - PIPE_Y_MARGIN));
+        int randomGap = GetRandomValue(MIN_GAP_SIZE, MAX_GAP_SIZE);
+
+        int gapY = GetRandomValue(PIPE_Y_MARGIN, (int)(GROUND_Y - randomGap - PIPE_Y_MARGIN));
+
         Rectangle top = {
             xPos,
             static_cast<float>(gapY - PIPE_TEXTURE.height),
@@ -89,13 +93,13 @@ int main(int, char **)
             static_cast<float>(PIPE_TEXTURE.height)};
         Rectangle bottom = {
             xPos,
-            static_cast<float>(gapY + GAP_SIZE),
+            static_cast<float>(gapY + randomGap),
             static_cast<float>(PIPE_TEXTURE.width),
             static_cast<float>(PIPE_TEXTURE.height)};
         return Pipe{top, bottom, false};
     };
 
-    pipes.push_back(SpawnPipe(static_cast<float>(SCREEN_W)));
+    pipes.push_back(SpawnPipe(static_cast<float>(SCREEN_WIDTH)));
 
     while (!WindowShouldClose())
     {
@@ -115,7 +119,7 @@ int main(int, char **)
             backgroundScrollOffset = fmodf(backgroundScrollOffset - (PIPE_SPEED * 0.5f * deltaTime), static_cast<float>(BACKGROUND_TEXTURE.width));
             groundScrollOffset = fmodf(groundScrollOffset - (PIPE_SPEED * deltaTime), static_cast<float>(GROUND_TEXTURE.width));
 
-            if (!pipes.empty() && pipes.back().topRec.x < static_cast<float>(SCREEN_W) - PIPE_SPACING)
+            if (!pipes.empty() && pipes.back().topRec.x < static_cast<float>(SCREEN_WIDTH) - PIPE_SPACING)
                 pipes.push_back(SpawnPipe(pipes.back().topRec.x + static_cast<float>(PIPE_SPACING)));
 
             for (auto &p : pipes)
@@ -167,10 +171,10 @@ int main(int, char **)
         {
             if (IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
             {
-                playerPos = {static_cast<float>(SCREEN_W) / 4.0f, static_cast<float>(SCREEN_H) / 2.0f};
+                playerPos = {static_cast<float>(SCREEN_WIDTH) / 4.0f, static_cast<float>(SCREEN_HEIGHT) / 2.0f};
                 yVelocity = 0.0f;
                 pipes.clear();
-                pipes.push_back(SpawnPipe(static_cast<float>(SCREEN_W)));
+                pipes.push_back(SpawnPipe(static_cast<float>(SCREEN_WIDTH)));
                 gameOver = false;
                 backgroundScrollOffset = 0.0f;
                 groundScrollOffset = 0.0f;
@@ -181,7 +185,7 @@ int main(int, char **)
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        DrawTextureTiling(BACKGROUND_TEXTURE, 0, 0, static_cast<float>(SCREEN_W), static_cast<float>(SCREEN_H), backgroundScrollOffset, WHITE);
+        DrawTextureTiling(BACKGROUND_TEXTURE, 0, 0, static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT), backgroundScrollOffset, WHITE);
 
         for (auto &p : pipes)
         {
@@ -204,7 +208,7 @@ int main(int, char **)
             DrawTextureRec(PIPE_TEXTURE, pipeSourceRec, {p.bottomRec.x, p.bottomRec.y}, WHITE);
         }
 
-        DrawTextureTiling(GROUND_TEXTURE, 0, GROUND_Y, static_cast<float>(SCREEN_W), GROUND_HEIGHT, groundScrollOffset, WHITE);
+        DrawTextureTiling(GROUND_TEXTURE, 0, GROUND_Y, static_cast<float>(SCREEN_WIDTH), GROUND_HEIGHT, groundScrollOffset, WHITE);
 
         float targetPlayerAngle;
         float currentPlayerAngle;
@@ -234,7 +238,7 @@ int main(int, char **)
 
             const char *restartText = "Press SPACE or CLICK to Restart";
             int textWidth = MeasureText(restartText, 20);
-            DrawText(restartText, SCREEN_W / 2 - textWidth / 2, GAMEOVER_Y + GAMEOVER_TEXTURE.height + 20, 20, WHITE);
+            DrawText(restartText, SCREEN_WIDTH / 2 - textWidth / 2, GAMEOVER_Y + GAMEOVER_TEXTURE.height + 20, 20, WHITE);
         }
 
         EndDrawing();
