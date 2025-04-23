@@ -30,7 +30,7 @@ int main(int, char **)
     const int SCREEN_WIDTH = 870;
     const int SCREEN_HEIGHT = 512;
 
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Learning C++ with Flappy Bird");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "C++ Flappy Bird");
     SetTargetFPS(300);
 
     const Texture2D BACKGROUND_TEXTURE = LoadTexture("./assets/sprites/background.png");
