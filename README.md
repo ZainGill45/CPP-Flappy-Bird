@@ -9,12 +9,13 @@ This project was made to reinforce hands-on learning of **C++17**, **CMake**, an
 
 ## Prerequisites
 - **CMake** (version ≥ 4.0.1)
+- **CMake Extension** found under VS Code and extensions 
 - **vcpkg** cloned and bootstrapped
 - A C++ compiler with **C++17** support (e.g., MSVC, GCC, Clang)
 - **Git** for cloning the repository
 
 ## Getting Started
-Please keep in mind this project requires that you one have cmake, vcpkg, and some c++ compiliar installed in order for it work.
+Please keep in mind this project requires that you one have CMake, VS Code CMake extension, vcpkg, and some C++ compiliar installed in order for it work.
 
 1. **Clone this repo**
    ```bash
@@ -26,12 +27,10 @@ Please keep in mind this project requires that you one have cmake, vcpkg, and so
    vcpkg install
    ```
 3. **Configure & build** with CMake
-   ```bash
-   cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=./
-   cmake --build . --config Release
-   ```
+With the VS Code CMake extension set target preset to one that comes with the project and then click build all projects button under the project outline.
+
 4. **Run the game**
-To play the game go to the /out/build/cpp-flappy-bird directory and run the exe called cpp-flappy-bird.exe
+To play the game go to the /out/build/cpp-flappy-bird directory and run the exe called cpp-flappy-bird.exe.
 
 ## Controls
 - **SPACE** — make the bird flap (jump)
