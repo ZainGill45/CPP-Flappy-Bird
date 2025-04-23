@@ -1,3 +1,5 @@
+![Image of Flappy Bird made in C++]("./assets/C++ Flappy Bird.png")
+
 # Flappy C++ Raylib
 This repository contains a **Flappy Bird**–style game implemented in modern C++ using the minimalistic [Raylib](http://www.raylib.com) library for graphics and input. It leverages **CMake** as a cross-platform build system and **vcpkg** for seamless dependency management via a `vcpkg.json` manifest. The codebase demonstrates a classic game loop, tile-based rendering, keyboard input, and simple collision detection with Raylib’s built-in functions.
 
