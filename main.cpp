@@ -76,8 +76,6 @@ int main(int, char **)
 
     int currentScore = 0;
     int highScore = 0;
-    bool scoreDisplayed = false;
-    const float SCORE_X_POSITION = playerPos.x;
 
     std::vector<Pipe> pipes;
 
@@ -125,7 +123,7 @@ int main(int, char **)
                 p.topRec.x -= PIPE_SPEED * deltaTime;
                 p.bottomRec.x -= PIPE_SPEED * deltaTime;
 
-                if (!p.passed && p.topRec.x + p.topRec.width < SCORE_X_POSITION)
+                if (!p.passed && p.topRec.x + p.topRec.width < playerPos.x)
                 {
                     p.passed = true;
                     currentScore++;
@@ -208,10 +206,19 @@ int main(int, char **)
 
         DrawTextureTiling(GROUND_TEXTURE, 0, GROUND_Y, static_cast<float>(SCREEN_W), GROUND_HEIGHT, groundScrollOffset, WHITE);
 
-        DrawTexture(PLAYER_TEXTURE,
-                    static_cast<int>(playerPos.x - static_cast<float>(PLAYER_TEXTURE.width) / 2.0f),
-                    static_cast<int>(playerPos.y - static_cast<float>(PLAYER_TEXTURE.height) / 2.0f),
-                    WHITE);
+        float targetPlayerAngle;
+        float currentPlayerAngle;
+
+        if (!gameOver)
+        {
+            targetPlayerAngle = Clamp(yVelocity, -64, 64);
+            currentPlayerAngle = Lerp(currentPlayerAngle, targetPlayerAngle, deltaTime);
+        }
+
+        DrawTextureEx(PLAYER_TEXTURE,
+                      {(playerPos.x - static_cast<float>(PLAYER_TEXTURE.width) / 2.0f),
+                       (playerPos.y - static_cast<float>(PLAYER_TEXTURE.height) / 2.0f)},
+                      currentPlayerAngle, 1, WHITE);
 
         char scoreText[32];
         sprintf(scoreText, "Score: %d", currentScore);
